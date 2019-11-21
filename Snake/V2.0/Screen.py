@@ -6,7 +6,7 @@ class ScreenClass:
 
 	def __init__(self):
 
-		self.shape = (640,480) ##width, height
+		self.shape = (480,340) ##width, height
 		self.title = "Snake 2.0" ## window title
 		self.colors = {'white': (255,255,255), 'black':(0,0,0), 'red':(255,0,0), 'green': (0,255,0), 'blue':(0,0,255)} ##colors dictionary
 		self.window = None

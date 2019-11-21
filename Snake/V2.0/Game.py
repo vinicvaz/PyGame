@@ -6,10 +6,9 @@ from Snake import *
 from Food import *
 
 
-
 class GameClass:
 
-	def __init__(self,screen,snake,food):
+	def __init__(self,screen,snake,food, game_number):
 
 		#################################
 		## CONTROL VARIABLES
@@ -21,6 +20,7 @@ class GameClass:
 		self.food = food
 		self.screen = screen
 		self.title = 'Snake 2.0'
+		self.game_number = game_number
 
 		self.window = pygame.display.set_mode(self.screen.shape)
 		pygame.display.set_caption(self.title) ## DISPLAY TITLE
@@ -42,7 +42,6 @@ class GameClass:
 
 			while snake.game_over: 
 				self.window.fill(screen.colors['black'])
-				print("game over")
 				for event in pygame.event.get():
 					if event.type == pygame.QUIT:
 						exit = False
@@ -50,8 +49,11 @@ class GameClass:
 						pygame.quit()
 					if event.type == pygame.KEYDOWN:
 						if event.key == pygame.K_RETURN:
+							highscores.append(food.score)
+							print("Highscores:",highscores)
 							self.snake.reset()
-							player = GameClass(screen, snake, food)
+							self.food.reset()
+							player = GameClass(screen, snake, food, self.game_number+1)
 							player.game_loop()
 						if event.key == pygame.K_ESCAPE:
 							exit = False
@@ -70,13 +72,16 @@ class GameClass:
 			self.window.fill(self.screen.colors['black'])
 
 			self.snake.draw_snake(self.window) ## Draw Snake
-			self.food.draw_food(self.window) ## Draw Food
+			self.food.draw_food(self.window, self.game_number) ## Draw Food
 
 			pygame.display.update()
 
 
+
+highscores = []
+
 screen = ScreenClass()
 snake = SnakeClass(screen)
 food = FoodClass(screen, snake)
-player = GameClass(screen, snake, food)
+player = GameClass(screen, snake, food, 1)
 player.game_loop()
