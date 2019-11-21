@@ -2,7 +2,7 @@ import pygame
 import time
 from random import randrange
 from Screen import *
-from Snake2 import *
+from Snake import *
 from Food import *
 
 
@@ -50,7 +50,6 @@ class GameClass:
 						pygame.quit()
 					if event.type == pygame.KEYDOWN:
 						if event.key == pygame.K_RETURN:
-							snake.game_over = False
 							self.snake.reset()
 							player = GameClass(screen, snake, food)
 							player.game_loop()
